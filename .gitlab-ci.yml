@@ -3,6 +3,7 @@ stages:
 
 minimum:
   stage: build
+  image: python
   script:
     - curl -OLs ${TESTING_BASE_URL}/${TESTING_QUARTER}/CIFileExistenceCheck.py
     - curl -OLs ${TESTING_BASE_URL}/${TESTING_QUARTER}/massPullOptions.cfg
