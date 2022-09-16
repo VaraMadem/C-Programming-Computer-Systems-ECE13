@@ -1,14 +1,12 @@
 stages:
   - build
-  - test
 
 minimum:
-  image: $TESTING_DOCKER_IMAGE
   stage: build
   script:
-    - curl -OLs ${TESTING_BASE_URL}/${TESTING_SECRET}/CIFileExistenceCheck
-    - curl -OLs ${TESTING_BASE_URL}/${TESTING_SECRET}/massPullOptions.cfg
-    - python3 CIFileExistenceCheck massPullOptions.cfg
+    - curl -OLs ${TESTING_BASE_URL}/${TESTING_QUARTER}/CIFileExistenceCheck.py
+    - curl -OLs ${TESTING_BASE_URL}/${TESTING_QUARTER}/massPullOptions.cfg
+    - python3 CIFileExistenceCheck.py massPullOptions.cfg
   artifacts:
     expire_in: 1 week
 
