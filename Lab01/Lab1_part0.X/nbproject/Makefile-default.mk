@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=../BOARD.c part0.c
+SOURCEFILES_QUOTED_IF_SPACED=part0.c ../BOARD.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1472/BOARD.o ${OBJECTDIR}/part0.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1472/BOARD.o.d ${OBJECTDIR}/part0.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/part0.o ${OBJECTDIR}/_ext/1472/BOARD.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/part0.o.d ${OBJECTDIR}/_ext/1472/BOARD.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/_ext/1472/BOARD.o ${OBJECTDIR}/part0.o
+OBJECTFILES=${OBJECTDIR}/part0.o ${OBJECTDIR}/_ext/1472/BOARD.o
 
 # Source Files
-SOURCEFILES=../BOARD.c part0.c
+SOURCEFILES=part0.c ../BOARD.c
 
 
 
@@ -107,30 +107,30 @@ endif
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${OBJECTDIR}/_ext/1472/BOARD.o: ../BOARD.c  .generated_files/flags/default/eff08dbba6304d6751ebb21520ea901ece9d7724 .generated_files/flags/default/fb83cc48fb9a4ca6d8dc33bb7f54ecec63c0816e
-	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
-	@${RM} ${OBJECTDIR}/_ext/1472/BOARD.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1472/BOARD.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG   -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -fno-common -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1472/BOARD.o.d" -o ${OBJECTDIR}/_ext/1472/BOARD.o ../BOARD.c    -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	
 ${OBJECTDIR}/part0.o: part0.c  .generated_files/flags/default/fb62254fc82ae61889e3748f4b5a6293b93cf59d .generated_files/flags/default/fb83cc48fb9a4ca6d8dc33bb7f54ecec63c0816e
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/part0.o.d 
 	@${RM} ${OBJECTDIR}/part0.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG   -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -fno-common -Wall -MP -MMD -MF "${OBJECTDIR}/part0.o.d" -o ${OBJECTDIR}/part0.o part0.c    -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
 	
-else
-${OBJECTDIR}/_ext/1472/BOARD.o: ../BOARD.c  .generated_files/flags/default/782d14656c9a4c8f0d4d1dcea4a97ea788ee93e1 .generated_files/flags/default/fb83cc48fb9a4ca6d8dc33bb7f54ecec63c0816e
+${OBJECTDIR}/_ext/1472/BOARD.o: ../BOARD.c  .generated_files/flags/default/eff08dbba6304d6751ebb21520ea901ece9d7724 .generated_files/flags/default/fb83cc48fb9a4ca6d8dc33bb7f54ecec63c0816e
 	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
 	@${RM} ${OBJECTDIR}/_ext/1472/BOARD.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1472/BOARD.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -fno-common -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1472/BOARD.o.d" -o ${OBJECTDIR}/_ext/1472/BOARD.o ../BOARD.c    -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG   -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -fno-common -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1472/BOARD.o.d" -o ${OBJECTDIR}/_ext/1472/BOARD.o ../BOARD.c    -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
 	
+else
 ${OBJECTDIR}/part0.o: part0.c  .generated_files/flags/default/9ada080e3335600842d6ced0387c3de921d9d59d .generated_files/flags/default/fb83cc48fb9a4ca6d8dc33bb7f54ecec63c0816e
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/part0.o.d 
 	@${RM} ${OBJECTDIR}/part0.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -fno-common -Wall -MP -MMD -MF "${OBJECTDIR}/part0.o.d" -o ${OBJECTDIR}/part0.o part0.c    -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	
+${OBJECTDIR}/_ext/1472/BOARD.o: ../BOARD.c  .generated_files/flags/default/782d14656c9a4c8f0d4d1dcea4a97ea788ee93e1 .generated_files/flags/default/fb83cc48fb9a4ca6d8dc33bb7f54ecec63c0816e
+	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
+	@${RM} ${OBJECTDIR}/_ext/1472/BOARD.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1472/BOARD.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -fno-common -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1472/BOARD.o.d" -o ${OBJECTDIR}/_ext/1472/BOARD.o ../BOARD.c    -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
 	
 endif
 
