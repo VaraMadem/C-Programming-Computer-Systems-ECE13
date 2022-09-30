@@ -26,16 +26,38 @@ int main(void)
     step=20;
     fahr=lower;
     
+    //column headers
+    printf("   ");
+    printf(" F    C\n");
+    
     
     //print out table
-    while(fahr<upper){
+    while(fahr<=upper){
         celsius=(5.0/9.0)*(fahr-32.0);
-        printf("%f %f\n", (double)fahr,(double)celsius);
+        printf("%7.1f %04.0f\n", (double)fahr, (double) celsius);
         
         fahr=fahr+step;
     }
 
-
+    printf("\n");
+    
+    
+    //variables
+    lower=0;
+    upper=300;
+    step=20;
+    float kelv =lower;
+    
+    printf("  K     F\n");
+    
+    
+     //print out table
+    while(kelv <= upper){
+        fahr =((kelv - 273.15)*(9.0/5.0)+32);
+        printf("%3.3f %5f\n", (double)kelv , (double) fahr);
+        
+        kelv = kelv +step;
+    }
     /***************************************************************************************************
      * Your code goes in between this comment and the preceding one with asterisks.
      **************************************************************************************************/
