@@ -20,3 +20,8 @@
 *.ogg
 /Lab01/build/
 /Lab01/Lab1_part0.X/build/
+/Lab01/Lab1_part0.X/dist/
+/Lab01/Lab1_part1.X/dist/
+/Lab01/Lab1_part1.X/build/
+/Lab01/Lab1_part2.X/build/
+/Lab01/Lab1_part2.X/dist/
