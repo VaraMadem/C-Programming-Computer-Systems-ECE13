@@ -51,7 +51,7 @@ void CalculatorRun(void)
 
 
 
-          if(g == '-')
+          else if(g == '-')
 	{
                 printf("Enter the first operand: ");
                 scanf("%lf", &operand1);
@@ -62,7 +62,7 @@ void CalculatorRun(void)
          }
 
 
-          if(g == '*')
+          else if(g == '*')
 	{
                 printf("Enter the first operand: ");
                 scanf("%lf", &operand1);
@@ -73,7 +73,7 @@ void CalculatorRun(void)
          }
 
 
-          if(g == '/')
+          else if(g == '/')
 	{
                 printf("Enter the first operand: ");
                 scanf("%lf", &operand1);
@@ -84,14 +84,14 @@ void CalculatorRun(void)
 		{
                     printf("Divide by zero error!\n");                
                 } 
-		else 
-		{
+                else
+                {
                     printf("Result of (%lf / %lf): %lf\n\n", operand1, operand2, answer);     
                 }
            }
 
 
-            if(g == 'm')
+            else if(g == 'm')
 	{
                 printf("Enter the first operand: ");
                 scanf("%lf", &operand1);
@@ -103,7 +103,7 @@ void CalculatorRun(void)
 
 
 
-            if(g == 'a')
+            else if(g == 'a')
 		{
                 printf("Enter the first operand: ");
                 scanf("%lf", &operand);
@@ -112,7 +112,7 @@ void CalculatorRun(void)
          	}
 
 
-            if(g == 'c')
+            else if(g == 'c')
 		{
                 printf("Enter the first operand: ");
                 scanf("%lf", &operand);
@@ -121,7 +121,7 @@ void CalculatorRun(void)
                 }
 
 
-            if(g == 'f')
+            else if(g == 'f')
 		{
                 printf("Enter the first operand: ");
                 scanf("%lf", &operand);
@@ -130,16 +130,24 @@ void CalculatorRun(void)
                }
 
 
-            if(g == 't')
+            else if(g == 't')
 		{
                 printf("Enter the first operand: ");
                 scanf("%lf",&operand);
                 answer = Tangent(operand);
                 printf("Result of tan(%lf): %lf\n\n", operand, answer);
               }
+    
+            else if(g == 'r')
+        {
+                printf("Enter the first operand: ");
+                scanf("%lf",&operand);
+                answer = Round(operand);
+                printf("Result of round(%lf): %lf\n\n", operand, answer);
+              }
 
 
-            if(g == 'q')
+            else if(g == 'q')
 		{
                 exit(0);
                 break;
@@ -149,8 +157,8 @@ void CalculatorRun(void)
 	 {
       
                 printf("Error, not a valid operator.\n\n");
-                break;  
-		}
+                  
+	}
         
         
     }
@@ -266,9 +274,9 @@ return (tan(operand * (M_PI/180)));
  * In order to receive the extra credit your calculator MUST ALSO CORRECTLY utilize
  * this function.
  ********************************************************************************/
-//double Round(double operand)
-//{
-
-//}
+double Round(double operand)
+{
+    return round(operand);
+}
 
 
