@@ -17,9 +17,10 @@ double Add(double operand1, double operand2);
 double Subtract(double operand1, double operand2);
 double Multiply(double operand1, double operand2);
 double Divide(double operand1, double operand2);
+double Average(double operand1, double operand2);
 double AbsoluteValue(double operand);
 double FahrenheitToCelsius(double operand);
-double CelsiusToFarenheit(double operand);
+double CelsiusToFahrenheit(double operand);
 double Tangent(double operand);
 double Round(double operand);
 //add more prototypes here
@@ -30,7 +31,8 @@ void CalculatorRun(void)
     printf("\n\nWelcome to Vara's calculator program! Compiled at %s %s\n",__DATE__, __TIME__);
 
     // Your code here
-     while(1) {
+     while(1) 
+{
         char g;
         double operand1, operand2, operand, answer;
         
@@ -50,7 +52,7 @@ void CalculatorRun(void)
 
 
           if(g == '-')
-{
+	{
                 printf("Enter the first operand: ");
                 scanf("%lf", &operand1);
                 printf("Enter the second operand: ");
@@ -61,7 +63,7 @@ void CalculatorRun(void)
 
 
           if(g == '*')
-{
+	{
                 printf("Enter the first operand: ");
                 scanf("%lf", &operand1);
                 printf("Enter the second operand: ");
@@ -72,22 +74,25 @@ void CalculatorRun(void)
 
 
           if(g == '/')
-{
+	{
                 printf("Enter the first operand: ");
                 scanf("%lf", &operand1);
                 printf("Enter the second operand: ");
                 scanf("%lf", &operand2);
                 answer = Divide(operand1, operand2);
-                if (answer == HUGE_VAL){
+                if (answer == HUGE_VAL)
+		{
                     printf("Divide by zero error!\n");                
-                } else {
+                } 
+		else 
+		{
                     printf("Result of (%lf / %lf): %lf\n\n", operand1, operand2, answer);     
                 }
            }
 
 
             if(g == 'm')
-{
+	{
                 printf("Enter the first operand: ");
                 scanf("%lf", &operand1);
                 printf("Enter the second operand: ");
@@ -99,16 +104,16 @@ void CalculatorRun(void)
 
 
             if(g == 'a')
-{
+		{
                 printf("Enter the first operand: ");
                 scanf("%lf", &operand);
                 answer = AbsoluteValue(operand);
                 printf("Result of |%lf|: %lf\n\n", operand, answer);
-         }
+         	}
 
 
             if(g == 'c')
-{
+		{
                 printf("Enter the first operand: ");
                 scanf("%lf", &operand);
                 answer = FahrenheitToCelsius(operand);
@@ -117,7 +122,7 @@ void CalculatorRun(void)
 
 
             if(g == 'f')
-{
+		{
                 printf("Enter the first operand: ");
                 scanf("%lf", &operand);
                 answer = CelsiusToFahrenheit(operand);
@@ -126,7 +131,7 @@ void CalculatorRun(void)
 
 
             if(g == 't')
-{
+		{
                 printf("Enter the first operand: ");
                 scanf("%lf",&operand);
                 answer = Tangent(operand);
@@ -135,16 +140,17 @@ void CalculatorRun(void)
 
 
             if(g == 'q')
-{
+		{
                 exit(0);
                 break;
-}
+		}
 
-	else {
-            default:
+	else
+	 {
+      
                 printf("Error, not a valid operator.\n\n");
                 break;  
-}
+		}
         
         
     }
