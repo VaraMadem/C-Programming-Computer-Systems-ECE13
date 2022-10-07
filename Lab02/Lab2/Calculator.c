@@ -266,9 +266,9 @@ return (tan(operand * (M_PI/180)));
  * In order to receive the extra credit your calculator MUST ALSO CORRECTLY utilize
  * this function.
  ********************************************************************************/
-double Round(double operand)
-{
+//double Round(double operand)
+//{
 
-}
+//}
 
 
