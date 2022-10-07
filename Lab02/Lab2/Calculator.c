@@ -31,90 +31,122 @@ void CalculatorRun(void)
 
     // Your code here
      while(1) {
-        char op;
-        double operand1, operand2, operand, result;
+        char g;
+        double operand1, operand2, operand, answer;
         
         printf("Enter a mathematical operation to perform (*,/,+,-,m,a,c,f,t,r): ");
-        scanf(" %c", &op);   
+        scanf(" %c", &g);   
 
-        switch(op)
+        if(g == '+')
         {
-            case '+':
                 printf("Enter the first operand: ");
                 scanf("%lf", &operand1);
                 printf("Enter the second operand: ");
                 scanf("%lf", &operand2);
-                result = Add(operand1, operand2);
-                printf("Result of (%lf + %lf): %lf\n\n", operand1, operand2, result);
-                break;
-            case '-':
+                answer = Add(operand1, operand2);
+                printf("Result of (%lf + %lf): %lf\n\n", operand1, operand2, answer);
+         }
+
+
+
+          if(g == '-')
+{
                 printf("Enter the first operand: ");
                 scanf("%lf", &operand1);
                 printf("Enter the second operand: ");
                 scanf("%lf", &operand2);
-                result = Subtract(operand1, operand2);
-                printf("Result of (%lf - %lf): %lf\n\n", operand1, operand2, result);
-                break;
-            case '*':
+                answer = Subtract(operand1, operand2);
+                printf("Result of (%lf - %lf): %lf\n\n", operand1, operand2, answer);
+         }
+
+
+          if(g == '*')
+{
                 printf("Enter the first operand: ");
                 scanf("%lf", &operand1);
                 printf("Enter the second operand: ");
                 scanf("%lf", &operand2);
-                result = Multiply(operand1, operand2);
-                printf("Result of (%lf * %lf): %lf\n\n", operand1, operand2, result);
-                break;
-            case '/':
+                answer = Multiply(operand1, operand2);
+                printf("Result of (%lf * %lf): %lf\n\n", operand1, operand2, answer);
+         }
+
+
+          if(g == '/')
+{
                 printf("Enter the first operand: ");
                 scanf("%lf", &operand1);
                 printf("Enter the second operand: ");
                 scanf("%lf", &operand2);
-                result = Divide(operand1, operand2);
-                if (result == HUGE_VAL){
+                answer = Divide(operand1, operand2);
+                if (answer == HUGE_VAL){
                     printf("Divide by zero error!\n");                
                 } else {
-                    printf("Result of (%lf / %lf): %lf\n\n", operand1, operand2, result);     
+                    printf("Result of (%lf / %lf): %lf\n\n", operand1, operand2, answer);     
                 }
-                break;
-            case 'm':
+           }
+
+
+            if(g == 'm')
+{
                 printf("Enter the first operand: ");
                 scanf("%lf", &operand1);
                 printf("Enter the second operand: ");
                 scanf("%lf", &operand2);
-                result = Average(operand1, operand2);
-                printf("Result of average(%lf and %lf): %lf\n\n", operand1, operand2, result);
-                break;
-            case 'a':
+                answer = Average(operand1, operand2);
+                printf("Result of average(%lf and %lf): %lf\n\n", operand1, operand2, answer);
+            }
+
+
+
+            if(g == 'a')
+{
                 printf("Enter the first operand: ");
                 scanf("%lf", &operand);
-                result = AbsoluteValue(operand);
-                printf("Result of |%lf|: %lf\n\n", operand, result);
-                break;
-            case 'c':
+                answer = AbsoluteValue(operand);
+                printf("Result of |%lf|: %lf\n\n", operand, answer);
+         }
+
+
+            if(g == 'c')
+{
                 printf("Enter the first operand: ");
                 scanf("%lf", &operand);
-                result = FahrenheitToCelsius(operand);
-                printf("%lf degrees Fahrenheit is: %lf degrees Celsius\n\n", operand, result);
-                break;
-            case 'f':
+                answer = FahrenheitToCelsius(operand);
+                printf("%lf degrees Fahrenheit is: %lf degrees Celsius\n\n", operand, answer);
+                }
+
+
+            if(g == 'f')
+{
                 printf("Enter the first operand: ");
                 scanf("%lf", &operand);
-                result = CelsiusToFahrenheit(operand);
-                printf("%lf degrees Celsius is: %lf degrees Fahrenheit\n\n", operand, result);
-                break;
-            case 't':
+                answer = CelsiusToFahrenheit(operand);
+                printf("%lf degrees Celsius is: %lf degrees Fahrenheit\n\n", operand, answer);
+               }
+
+
+            if(g == 't')
+{
                 printf("Enter the first operand: ");
                 scanf("%lf",&operand);
-                result = Tangent(operand);
-                printf("Result of tan(%lf): %lf\n\n", operand, result);
-                break;
-            case 'q':
+                answer = Tangent(operand);
+                printf("Result of tan(%lf): %lf\n\n", operand, answer);
+              }
+
+
+            if(g == 'q')
+{
                 exit(0);
                 break;
+}
+
+	else {
             default:
                 printf("Error, not a valid operator.\n\n");
                 break;  
+}
         
-        }
+        
     }
     BOARD_End();
 }
@@ -156,7 +188,12 @@ return operand1 * operand2;
  ********************************************************************************/
 double Divide(double operand1, double operand2)
 {
-return operand1 / operand2;	
+if(operand2 ==0){
+return HUGE_VAL;
+}
+else{
+return operand1 / operand2;
+}	
 }
 
 
@@ -170,8 +207,9 @@ if (operand<0)
 {
 return operand*(-1);
 }
-else
+else{
 return operand;
+}
 }
 
 
