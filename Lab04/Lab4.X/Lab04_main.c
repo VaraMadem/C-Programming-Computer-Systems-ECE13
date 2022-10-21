@@ -6,7 +6,7 @@
 
 //CMPE13 Support Library
 #include "BOARD.h"
-
+#include "BOARD.c"
 
 
 // User libraries
