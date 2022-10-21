@@ -56,9 +56,12 @@ int RPN_Evaluate(char * rpn_string, double * result) {
         }
 
         if (strcmp(token, "-") == 0) {
+            
             if (StackGetSize(&stack) < 2) {
                 return RPN_ERROR_STACK_UNDERFLOW;
             }
+            
+            
             StackPop(&stack, &spot1);
             StackPop(&stack, &spot2);
             StackPush(&stack, (spot2 - spot1));
@@ -66,40 +69,63 @@ int RPN_Evaluate(char * rpn_string, double * result) {
         }
 
         else if (strcmp(token, "+") == 0) {
+            
             if (StackGetSize(&stack) < 2) {
                 return RPN_ERROR_STACK_UNDERFLOW;
             }
 
+            
+            
             StackPop(&stack, &spot1);
             StackPop(&stack, &spot2);
             StackPush(&stack, (spot1 + spot2));
 
         }
         else if (strcmp(token, "*") == 0) {
+            
             if (StackGetSize(&stack) < 2) {
                 return RPN_ERROR_STACK_UNDERFLOW;
             }
+            
+            
+            
             StackPop(&stack, &spot1);
             StackPop(&stack, &spot2);
             StackPush(&stack, (spot1 * spot2));
 
         }
         else if (strcmp(token, "/") == 0) {
-            if (StackGetSize(&stack) < 2)
+            
+            if (StackGetSize(&stack) < 2){
                 return RPN_ERROR_STACK_UNDERFLOW;
+            }
+            
+            
             StackPop(&stack, &spot1);
             StackPop(&stack, &spot2);
-            if (spot1 == 0)
+            
+            
+            if (spot1 == 0){
                 return RPN_ERROR_DIVIDE_BY_ZERO;
+            }
+            
+            
             StackPush(&stack, spot2 / spot1);
 
         }
         else {
-            if (StackGetSize(&stack) == STACK_SIZE)
+            
+            if (StackGetSize(&stack) == STACK_SIZE){
                 return RPN_ERROR_STACK_OVERFLOW;
+            }
+            
+            
             x = atof(token);
             StackPush(&stack, x);
         }
+        
+        
+        
         token = strtok(NULL, " ");
 
 
@@ -108,6 +134,9 @@ int RPN_Evaluate(char * rpn_string, double * result) {
 
     StackPop(&stack, result);
     return RPN_NO_ERROR;
+    
+    
+    
 }
 
 
