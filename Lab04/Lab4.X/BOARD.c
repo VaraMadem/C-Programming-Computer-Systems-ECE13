@@ -157,7 +157,7 @@ void BOARD_End() {
     I2C2CONCLR = _I2C2CON_ON_MASK;
 
     //disable spi interrupts, clear flags and turn off module
-    SPI1CONCLR = _SPI1CON_ON_MASK;
+//  SPI1CONCLR = _SPI1CON_ON_MASK;
     SPI2CONCLR = _SPI2CON_ON_MASK;
 
     // disable external interrupts, clear flags and turn off module

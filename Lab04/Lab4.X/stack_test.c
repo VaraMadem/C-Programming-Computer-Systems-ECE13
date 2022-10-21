@@ -12,7 +12,7 @@
 int main(){
     BOARD_Init();
 
-    printf("\n###### Beginning CRUZID's stack test harness: ####\n\n");
+    printf("\n###### Beginning 1872442 stack test harness: ####\n\n");
 
     //What follows is starter code.  You will need to modify it!
     

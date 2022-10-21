@@ -15,7 +15,6 @@
  * 
  */
 void StackInit(struct Stack *stack){
-// Set stack values to variables
     stack->currentItemIndex = -1;
     stack->initialized = TRUE;
 }
