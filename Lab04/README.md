@@ -1,0 +1,9 @@
+Vara Madem
+
+In summary, in this lab we learnt how to create and use stack functions to impliment a calculator for Polish Notation. We needed to read and parse through a string and place it in a new stack to then read through and perform the operations. The stack stores the values in the opposite order, so when the user enters the operation at the end, it stores as the first value in the stack, which we then read and follow the according if loop. The important aspects of the lab for me was learning what stacks are, and using the appropriate stack functinos from the prewritten library. 
+
+My approach to the lab was first understanding Polish Notation. I then had to learn how stacks were used and created- from how the values got stored to how to use pointers to read through the elements and perform the functions by using push and pop. This lab was quite difficult- it being my first time learning and using stacks- and I ran into many errors that I worked around by learning to use new functions such as strcmp to compare the values in the stacks.
+
+Final Results: I wasn't able to complete ProcessBackspaces because of my unfamiliarity with this whole lab, but I was able to learn a lot and actually code my own functions using stacks. The process was very hard and took a lot of steps, and I wasn't able to fully test my results given- I wish we were given a few more days to experiment with this new concept before also combining it with an out of ordinary calculator system. This lab took me around 3-4 days, a lot of which was time used to process where I even needed to approach certain situations. Also I wish we were given more time and a lot more insturctions in the lab pdf to guide us, I still did learn a lot. But personally I believe this assignment would've been a lot more approachable with some more details in the instructions to guide us.
+
+
