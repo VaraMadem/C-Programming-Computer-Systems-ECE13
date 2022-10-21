@@ -9,8 +9,7 @@
 // User libraries
 #include "stack.h"
 
-int main()
-{
+int main(){
     BOARD_Init();
 
     printf("\n###### Beginning CRUZID's stack test harness: ####\n\n");

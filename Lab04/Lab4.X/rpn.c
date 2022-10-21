@@ -59,13 +59,16 @@ int RPN_Evaluate(char * rpn_string, double * result) {
     
     
     // Declare Variables
+    double x, spot1, spot2;    // declare operator and temp
     char* token;
     struct Stack stack = {};   // create empty Stack structure
-    double temp, operator1, operator2;    // declare operator and temp
+    
     
     
     token = strtok(rpn_string, " ");
     StackInit(&stack);
+    
+    
     
     
    
@@ -78,16 +81,70 @@ int RPN_Evaluate(char * rpn_string, double * result) {
     
     
     while (token != NULL) {
-        if (token == "-"){
+        
+        
+        
+        if (strcmp(token, "-") != 0 || strcmp(token, "+") != 0 || strcmp(token, "*") == 0 || strcmp(token, "/") == 0){
+           return RPN_ERROR_INVALID_TOKEN; 
+        }
+        
+        if (strcmp(token, "-") == 0){
             if (StackGetSize(&stack)<2){
                 return RPN_ERROR_STACK_UNDERFLOW;
             }
-           StackPop(&stack, &operator1);
-           StackPop(&stack, &operator2);
-           StackPush(&stack, (operator2 - operator1));
+           StackPop(&stack, &spot1);
+           StackPop(&stack, &spot2);
+           StackPush(&stack, (spot2 - spot1));
             
            }
+        
+        
+        else if(strcmp(token, "+") == 0){
+            if (StackGetSize(&stack)<2){
+                return RPN_ERROR_STACK_UNDERFLOW;
+            }
+            
+            StackPop(&stack, &spot1);
+            StackPop(&stack, &spot2);
+            StackPush(&stack, (spot1 + spot2));
+            
         }
+        
+        else if (strcmp(token, "*") == 0) {
+            if (StackGetSize(&stack) < 2){
+                return RPN_ERROR_STACK_UNDERFLOW;
+            }                   
+            StackPop(&stack, &spot1);
+            StackPop(&stack, &spot2);
+            StackPush(&stack, (spot1 * spot2));
+        
+        }
+        
+        else if (strcmp(token, "/") == 0) {
+            if (StackGetSize(&stack) < 2)
+                return RPN_ERROR_STACK_UNDERFLOW;
+            StackPop(&stack, &spot1);
+            StackPop(&stack, &spot2);
+            if (spot1 == 0)
+                return RPN_ERROR_DIVIDE_BY_ZERO;
+            StackPush(&stack, spot2 / spot1);
+            
+        }
+        
+        else {
+            if (StackGetSize(&stack) == STACK_SIZE)
+                return RPN_ERROR_STACK_OVERFLOW;
+            x = atof(token);
+            StackPush(&stack, x);
+        }
+       // token = strtok(NULL, " ");  
+        
+        
+        StackPop(&stack, result);
+    return RPN_NO_ERROR;
+    
+        }
+}
         
         
 
@@ -98,7 +155,7 @@ int RPN_Evaluate(char * rpn_string, double * result) {
         
       //     return TRUE;
         
-        
+        /*
         // Subtraction
         if (strcmp(token, "-") == 0) {
             if (StackGetSize(&stack) < 2){
@@ -143,12 +200,19 @@ int RPN_Evaluate(char * rpn_string, double * result) {
             temp = atof(token);
             StackPush(&stack, temp);
         }
-        token = strtok(NULL, " ");        
+        token = strtok(NULL, " ");    
+        
+        
+        
+        
+        
     }
     
+    
     // ERROR for too few items and items remain. If stack is greater or less than 1
-    if (StackGetSize(&stack) < 1)
+    if (StackGetSize(&stack) < 1) 
         return RPN_ERROR_TOO_FEW_ITEMS_REMAIN;
+    
     else if (StackGetSize(&stack) > 1)
         return RPN_ERROR_TOO_MANY_ITEMS_REMAIN;
     
@@ -159,3 +223,4 @@ int RPN_Evaluate(char * rpn_string, double * result) {
 }
 
 int ProcessBackspaces(char *rpn_sentence);
+      */
