@@ -111,6 +111,7 @@ int LinkedListSwapData(ListItem *firstItem, ListItem *secondItem);
  * @param list Any element in the list to print.
  * @return SUCCESS or STANDARD_ERROR if passed NULL pointers.
  */
+
 int LinkedListPrint(ListItem *list);
 
 #endif

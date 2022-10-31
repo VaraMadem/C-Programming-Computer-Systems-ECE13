@@ -23,7 +23,7 @@ int main(void)
 {
     BOARD_Init();
 
-    printf("\n\nWelcome to CRUZID's sort.c, compiled on %s %s.\n", __DATE__, __TIME__);
+    printf("\n\nWelcome to 1872442 sort.c, compiled on %s %s.\n", __DATE__, __TIME__);
 
     ListItem* listToSort;
 
@@ -60,9 +60,47 @@ int main(void)
  * 
  * This function does not print.
  */
-ListItem *SelectionSort(ListItem* list)
-{
-   //YOUR CODE GOES HERE!
+
+ListItem *SelectionSort(ListItem* list) {
+    ListItem*first = LinkedListGetFirst(list);
+    ListItem *i = first;
+    
+    while(i != NULL){
+        ListItem *a = i->nextItem;
+        while(a !=NULL){
+            if(strcmp(i->data, a->data)>0){
+                LinkedListSwapData(i,a);
+            }
+            a=a->nextItem;
+        }
+        i=i->nextItem;
+    }
+    return first;
+    
+    
+    
+    /*
+    ListItem *head = LinkedListGetFirst(list);
+    ListItem* x;
+    ListItem* y;
+    for (x = head; x != NULL; x = x->nextItem) {
+        ListItem* sortvar = x;
+        for (y = x->nextItem; y != NULL; y = y->nextItem) {
+            ListItem* var1 = sortvar;
+            ListItem* var2 = y;
+            if (strcmp(var2->data, var1->data) < 0) {
+                sortvar = y;
+            }
+        }
+        if (sortvar != x) {
+            LinkedListSwapData(sortvar, x);
+        }
+    }
+
+    return head;
+     */
+    
+    
 }
 
 /**
@@ -77,10 +115,42 @@ ListItem *SelectionSort(ListItem* list)
  * 
  * This function does not print.
  */
-ListItem *InsertionSort(ListItem* list)
-{
-   //YOUR CODE GOES HERE!
+ListItem *InsertionSort(ListItem* list) {
+    // Direct from Pseudocode, Declaring Functions
+    ListItem *FS = LinkedListGetLast(list);
+    ListItem *LU;
+    ListItem *S;
+    ListItem *head = LinkedListGetFirst(list);
+    ListItem *tail = LinkedListGetLast(list);
+    ListItem *var;
+    
+    while (FS != head) {
+        LU = FS->previousItem;
+        if (strcmp(LU->data, FS->data) < 0) {
+            FS = LU;
+        } else {
+            S = FS;
+            while (S != tail) {
+                if (strcmp(S->nextItem->data, LU->data) > 0) {
+                    break;
+                } else {
+                    S = S->nextItem;
+                }
+            }
+            char* temp = LinkedListRemove(LU);
+            var = LinkedListCreateAfter(S, temp);
+            if (var == NULL) {
+                printf("NULL ERROR");
+            }
+            
+            tail = LinkedListGetLast(list);
+            head = LinkedListGetFirst(list);
+        }
+    }
+    FS = LinkedListGetFirst(S);
+    return FS;
 }
+
 
 /* CreateUnsortedList() uses the functions in the LinkedList library to
  * generate an unsorted list.  
@@ -118,4 +188,4 @@ ListItem *CreateUnsortedList(void)
     }
     return head;
 }
-// </editor-fold>
+
