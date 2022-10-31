@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "LinkedList.h";
+#include "LinkedList.h"
 
 #include "BOARD.h"
 
@@ -171,7 +171,7 @@ int LinkedListSwapData(ListItem *firstItem, ListItem *secondItem){
 int LinkedListPrint(ListItem *list){
     ListItem *spot = list;
     if(spot == NULL){
-        return NULL;
+        return STANDARD_ERROR;
     }
     while(spot !=NULL){
         printf("%s", spot->data);

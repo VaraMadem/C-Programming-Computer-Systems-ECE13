@@ -79,28 +79,6 @@ ListItem *SelectionSort(ListItem* list) {
     
     
     
-    /*
-    ListItem *head = LinkedListGetFirst(list);
-    ListItem* x;
-    ListItem* y;
-    for (x = head; x != NULL; x = x->nextItem) {
-        ListItem* sortvar = x;
-        for (y = x->nextItem; y != NULL; y = y->nextItem) {
-            ListItem* var1 = sortvar;
-            ListItem* var2 = y;
-            if (strcmp(var2->data, var1->data) < 0) {
-                sortvar = y;
-            }
-        }
-        if (sortvar != x) {
-            LinkedListSwapData(sortvar, x);
-        }
-    }
-
-    return head;
-     */
-    
-    
 }
 
 /**
@@ -115,40 +93,47 @@ ListItem *SelectionSort(ListItem* list) {
  * 
  * This function does not print.
  */
+
+//from pseudocode
 ListItem *InsertionSort(ListItem* list) {
-    // Direct from Pseudocode, Declaring Functions
-    ListItem *FS = LinkedListGetLast(list);
-    ListItem *LU;
-    ListItem *S;
-    ListItem *head = LinkedListGetFirst(list);
-    ListItem *tail = LinkedListGetLast(list);
-    ListItem *var;
     
-    while (FS != head) {
-        LU = FS->previousItem;
-        if (strcmp(LU->data, FS->data) < 0) {
+    
+    
+    ListItem*FS = LinkedListGetLast(list);
+    
+    
+    
+    while(FS->previousItem !=NULL){
+        ListItem *LU = FS->previousItem;
+        if(strcmp(LU->data, FS->data)<0){
             FS = LU;
-        } else {
-            S = FS;
-            while (S != tail) {
-                if (strcmp(S->nextItem->data, LU->data) > 0) {
+        }
+        else{
+            
+            
+            
+            
+            ListItem*S = FS;
+            while(S->nextItem !=NULL){
+                if(strcmp(S->data, LU->data)>0){
                     break;
-                } else {
-                    S = S->nextItem;
+                }
+                else{
+                    S= S->nextItem;
                 }
             }
-            char* temp = LinkedListRemove(LU);
-            var = LinkedListCreateAfter(S, temp);
-            if (var == NULL) {
-                printf("NULL ERROR");
-            }
             
-            tail = LinkedListGetLast(list);
-            head = LinkedListGetFirst(list);
+            
+            
+            
+            FS = LinkedListCreateAfter(S, LinkedListRemove(LU));
         }
     }
-    FS = LinkedListGetFirst(S);
     return FS;
+    
+    
+    
+    
 }
 
 
