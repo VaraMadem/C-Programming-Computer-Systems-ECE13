@@ -177,6 +177,7 @@ int LinkedListPrint(ListItem *list){
         printf("%s", spot->data);
         spot= spot->nextItem;
     }
+    return SUCCESS;
 }
 
 
