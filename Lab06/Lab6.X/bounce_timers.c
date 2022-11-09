@@ -27,7 +27,7 @@ struct Timer {
 static struct Timer TimerC;
 static struct Timer TimerB;
 static struct Timer TimerA;
-// For 2, 3, and 5 seconds
+
 #define C_Time_Remain 190  
 #define B_Time_Remain 114
 #define A_Time_Remain 76
@@ -53,12 +53,12 @@ int main(void)
     /***************************************************************************************************
      * Your code goes in between this comment and the following one with asterisks.
      **************************************************************************************************/
-    printf("Welcome to 1828506's lab6 part1 (timers).  Compiled on %s %s.\n", __TIME__, __DATE__);
+    printf("Welcome to 1872442's lab6 part1 (timers).  Compiled on %s %s.\n", __TIME__, __DATE__);
 
     // Initialize these LED
     LEDS_INIT();
     
-    // Initialize variables assigned to the 3 Timers
+   
     TimerC.event = FALSE;
     TimerB.event = FALSE;
     TimerA.event = FALSE;
@@ -71,26 +71,21 @@ int main(void)
             printf("C ");
             TimerA.event = FALSE;
             LATEbits.LATE2 = ~LATEbits.LATE2;
-            //If this doesn't work
-            //value ^= 0x04;
+            
         }
         if (TimerB.event == TRUE){
             printf("B ");
             TimerB.event = FALSE;
             LATEbits.LATE1 = ~LATEbits.LATE1;
-            //If this doesn't work
-            //value ^= 0x02;
+           
         }
         if (TimerA.event == TRUE){
             printf("A ");
             TimerA.event = FALSE;
             LATEbits.LATE0 = ~LATEbits.LATE0;
-            //If this doesn't work
-            //value ^=0x01;
+            
         }
-        //poll timer A
-            //react to timer A events
-            //clear timer A event flag
+        
     }
     
     /***************************************************************************************************
@@ -113,32 +108,35 @@ void __ISR(_TIMER_1_VECTOR, ipl4auto) Timer1Handler(void)
      * Your code goes in between this comment and the following one with asterisks.
      **************************************************************************************************/
     
-    //update timerA
-    //if timerA has counted down,
-        //generate timerA event
-        //reset timerA
+   
     
-    // Each Timer is Decremented by 1
-    TimerC.timeRemaining--;
-    TimerB.timeRemaining--;
-    TimerA.timeRemaining--;
+    //  Timers
+    TimerC.timeRemaining-1;
+    TimerB.timeRemaining-1;
+    TimerA.timeRemaining-1;
     
-    // For Timer C
-    if (TimerC.timeRemaining == FALSE && TimerC.event == 0){
+    //  C
+    if (TimerC.timeRemaining == FALSE){
+        if(TimerC.event == 0){
         TimerC.event = TRUE;
         TimerC.timeRemaining = C_Time_Remain; 
     }
+    }
     
-    // For Timer B
-    if (TimerB.timeRemaining == FALSE && TimerB.event == 0){
+    // B
+    if (TimerB.timeRemaining == FALSE ){
+        if(TimerB.event == 0){
         TimerB.event = TRUE;
         TimerB.timeRemaining = B_Time_Remain;
     }
+    }
     
-    // For Timer A
-    if (TimerA.timeRemaining == FALSE && TimerA.event == 0){
+    // A
+    if (TimerA.timeRemaining == FALSE){
+        TimerA.event == 0){
         TimerA.event = TRUE;
         TimerA.timeRemaining = A_Time_Remain;
+    }
     }
 
     /***************************************************************************************************

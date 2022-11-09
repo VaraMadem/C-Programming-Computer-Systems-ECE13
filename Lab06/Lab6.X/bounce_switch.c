@@ -21,7 +21,7 @@ struct Timer {
     int16_t timeRemaining;
 };
 
-static struct Timer timerA;
+static struct Timer TimerA;
 
 
 #define LEFT 0
@@ -66,7 +66,7 @@ int main(void)
     while(1){
         current = LEDS_GET();
         
-        if(timerA.event ==1){
+        if(TimerA.event ==1){
             if(current == LED8 && state==LEFT){
             state= RIGHT;
             LEDS_SET(current >>1);
@@ -85,46 +85,12 @@ int main(void)
         else if(state== LEFT){
             LEDS_SET(current << 1);
         }
-        timerA.event =0;
+        TimerA.event =0;
     }
     
     }
     
-   /* 
-    // Define Functions
-    TimerA.event = FALSE;
-    TimerA.timeRemaining = 1;
-    
-    // Set LED and state
-    LEDS_SET(defaultLED);
-    // char leftLED = 0x80;
-    // char rightLED = 0x01;
-							 
-	while(1){
-        if (TimerA.event) {
-            // Set LED
-            LEDS_SET(defaultLED);
-            
-            if (LATEbits.LATE7)
-                state = RIGHT;
-            else if (LATEbits.LATE0)
-                state = LEFT;
-            
-            // Increment each LED by one shift depending on LEFT/RIGHT           
-            if (state == LEFT) 
-                defaultLED = defaultLED << 1;
-            else if (state == RIGHT) 
-                defaultLED = defaultLED >> 1;
-            
-            // Clear event flag
-            TimerA.event = FALSE;
-    
-            
-        }               
-        //poll timer events and react if any occur
-        
-    }
-    */
+ 
     /***************************************************************************************************
      * Your code goes in between this comment and the preceding one with asterisks
      **************************************************************************************************/
@@ -146,81 +112,75 @@ void __ISR(_TIMER_1_VECTOR, ipl4auto) Timer1Handler(void)
      **************************************************************************************************/
     uint8_t swtichstates = SWITCH_STATES();
     
-    if(timerA.timeRemaining == 0){
+    if(TimerA.timeRemaining == 0){
         if(SWITCH_STATES() == 0x00){
-            timerA.event =1;
-            timerA.timeRemaining =16;
+            TimerA.event =1;
+            TimerA.timeRemaining =16;
         }
         else if(SWITCH_STATES()== 0x01){
-            timerA.event =1;
-            timerA.timeRemaining = 15;
+            TimerA.event =1;
+            TimerA.timeRemaining = 15;
         }
         else if(SWITCH_STATES()== 0x02){
-            timerA.event =1;
-            timerA.timeRemaining = 14;
+            TimerA.event =1;
+            TimerA.timeRemaining = 14;
         }
         else if(SWITCH_STATES()== 0x03){
-            timerA.event =1;
-            timerA.timeRemaining = 13;
+            TimerA.event =1;
+            TimerA.timeRemaining = 13;
         }
         else if(SWITCH_STATES()== 0x04){
-            timerA.event =1;
-            timerA.timeRemaining = 12;
+            TimerA.event =1;
+            TimerA.timeRemaining = 12;
         }
         else if(SWITCH_STATES()== 0x05){
-            timerA.event =1;
-            timerA.timeRemaining = 11;
+            TimerA.event =1;
+            TimerA.timeRemaining = 11;
         }
         else if(SWITCH_STATES()== 0x06){
-            timerA.event =1;
-            timerA.timeRemaining = 10;
+            TimerA.event =1;
+            TimerA.timeRemaining = 10;
         }
         else if(SWITCH_STATES()== 0x07){
-            timerA.event =1;
-            timerA.timeRemaining = 9;
+            TimerA.event =1;
+            TimerA.timeRemaining = 9;
         }
         else if(SWITCH_STATES()== 0x08){
-            timerA.event =1;
-            timerA.timeRemaining = 8;
+            TimerA.event =1;
+            TimerA.timeRemaining = 8;
         }
         else if(SWITCH_STATES()== 0x09){
-            timerA.event =1;
-            timerA.timeRemaining = 7;
+            TimerA.event =1;
+            TimerA.timeRemaining = 7;
         }
         else if(SWITCH_STATES()== 0x0A){
-            timerA.event =1;
-            timerA.timeRemaining = 6;
+            TimerA.event =1;
+            TimerA.timeRemaining = 6;
         }
         else if(SWITCH_STATES()== 0x0B){
-            timerA.event =1;
-            timerA.timeRemaining = 5;
+            TimerA.event =1;
+            TimerA.timeRemaining = 5;
         }
         else if(SWITCH_STATES()== 0x0C){
-            timerA.event =1;
-            timerA.timeRemaining = 4;
+            TimerA.event =1;
+            TimerA.timeRemaining = 4;
         }
         else if(SWITCH_STATES()== 0x0D){
-            timerA.event =1;
-            timerA.timeRemaining = 3;
+            TimerA.event =1;
+            TimerA.timeRemaining = 3;
         }
         else if(SWITCH_STATES()== 0x0E){
-            timerA.event =1;
-            timerA.timeRemaining = 2;
+            TimerA.event =1;
+            TimerA.timeRemaining = 2;
         }
         else if(SWITCH_STATES()== 0x0F){
-            timerA.event =1;
-            timerA.timeRemaining = 1;
+            TimerA.event =1;
+            TimerA.timeRemaining = 1;
         }
     }
     
     
-    /*
-    TimerA.timeRemaining--;
-    if (TimerA.timeRemaining == FALSE) {
-        TimerA.event = 1;
-        TimerA.timeRemaining = SWITCH_STATES() + 1;
-    }
-     */
+   
     /***************************************************************************************************
      * Your code goes in between this comment and the preceding one with asterisks
      **************************************************************************************************/									
