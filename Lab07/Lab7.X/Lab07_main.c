@@ -27,7 +27,9 @@ typedef enum {
 } OvenState;
 
 
-//changed THIS
+
+
+
 
 typedef enum {
     BAKEM, TOASTM, BROILM
@@ -43,14 +45,15 @@ typedef struct {
     OvenState state;
     //add more members to this struct
     
-    //CHANGED THIS
+   
     
     
-    uint16_t cookingTime; //
+    uint16_t timepress; 
     uint16_t remaintime; //
     uint16_t temp;  //
+    uint16_t cookingTime; //
     uint16_t mode;      //
-    uint16_t timepress;       //
+          //
     
     
     
@@ -63,22 +66,26 @@ typedef struct {
 // **** Declare any datatypes here ****
 
 
-/// CHANGED THIS
 
-static uint8_t ted = FALSE;                      //
+
+static uint16_t blinled;                 //
 static uint8_t changeadc = FALSE;               //
-static uint8_t adcVal;
-static uint8_t buttonevent = BUTTON_EVENT_NONE;  //
-static uint16_t abstract = 0;                 //
-static OvenData meanoven;                      //
-static uint16_t times = 0;
-static uint16_t blinled;                    //
+static uint8_t adc;        
+static uint16_t passedt;//
+  //
+static uint16_t abstract = 0;   
+static uint8_t ted = FALSE;  //
+static uint8_t buttonevent = BUTTON_EVENT_NONE;
+static OvenData meanoven;    
+static char down1;  //
+static uint16_t times = 0;                    //
+                    //
 static uint16_t patcake;                    //
 static uint16_t count = 0;                  //
-static uint16_t passedt;                    //
+                    //
 static uint16_t a;                          //
 static uint16_t tick = FALSE;              //
-static char down1;                       //
+                     //
 
 
 
@@ -93,48 +100,74 @@ static char down1;                       //
 void updateOvenOLED(OvenData meanoven){
     //update OLED here
     
-    // WHOLE FUNCTION
+    
     
         char paint[60] = "";
+        
+        
     
     char L1[6];
+    
+    
     sprintf(L1, "%s%s%s%s%s", OVEN_TOP_ON, OVEN_TOP_ON, OVEN_TOP_ON, OVEN_TOP_ON, OVEN_TOP_ON);
     char L2[6];
+    
+    
     sprintf(L2, "%s%s%s%s%s", OVEN_TOP_OFF, OVEN_TOP_OFF, OVEN_TOP_OFF, OVEN_TOP_OFF, OVEN_TOP_OFF);
     char on[6];
+    
+    
     sprintf(on, "%s%s%s%s%s", OVEN_BOTTOM_ON, OVEN_BOTTOM_ON, OVEN_BOTTOM_ON, OVEN_BOTTOM_ON, OVEN_BOTTOM_ON);
     char shut[6];
+    
     sprintf(shut, "%s%s%s%s%s", OVEN_BOTTOM_OFF, OVEN_BOTTOM_OFF, OVEN_BOTTOM_OFF, OVEN_BOTTOM_OFF, OVEN_BOTTOM_OFF);
     
     switch (meanoven.mode) {
         case BAKEM:
             if (meanoven.state == COOKING || meanoven.state == RESET_PENDING) {
                 if (!ted) {
-                    sprintf(paint, "%s Mode: BAKE\n|    |>Time: %d:%02d\n|    |Temp: %d%sF\n%s", L2, meanoven.cookingTime/60, meanoven.cookingTime%60, meanoven.temp, DEGREE_SYMBOL, fetOff);
+                    sprintf(paint, "%s Mode: BAKE\n|    |>Time: %d:%02d\n|    |Temp: %d%sF\n%s", L2, meanoven.cookingTime/60, meanoven.cookingTime%60, meanoven.temp, DEGREE_SYMBOL, shut);
                 } else {
-                    sprintf(paint, "%s Mode: BAKE\n|    |Time: %d:%02d\n|    |>Temp: %d%sF\n%s", L2, meanoven.cookingTime/60, meanoven.cookingTime%60, meanoven.temp, DEGREE_SYMBOL, fetOff);
+                    sprintf(paint, "%s Mode: BAKE\n|    |Time: %d:%02d\n|    |>Temp: %d%sF\n%s", L2, meanoven.cookingTime/60, meanoven.cookingTime%60, meanoven.temp, DEGREE_SYMBOL, shut);
                 }
             } else {
                 sprintf(paint, "%s Mode: BAKE\n|    |Time: %d:%02d\n|    |Temp: %d%sF\n%s", L1, meanoven.remaintime/60, meanoven.remaintime%60, meanoven.temp, DEGREE_SYMBOL, on);
             }
             break;
-        case TOASTM:
-            if (meanoven.state == COOKING || meanoven.state == RESET_PENDING) {
-                sprintf(paint, "%s Mode: TOAST\n|    |Time: %d:%02d\n%s", L2, meanoven.cookingTime/60, meanoven.cookingTime%60, shut);
-            } else {
-                sprintf(paint, "%s Mode: TOAST\n|    |Time: %d:%02d\n%s", L2, meanoven.remaintime/60, meanoven.remaintime%60, on);
-            }
-            break;
+            
+            
+            
+            
+        
+            
+            
+            
+            
         case BROILM:
             if (meanoven.state == COOKING || meanoven.state == RESET_PENDING) {
                 sprintf(paint, "%s Mode: BROIL\n|    |Time: %d:%02d\n|    |Temp: 500%sF\n%s", L2, meanoven.cookingTime/60, meanoven.cookingTime%60, DEGREE_SYMBOL, shut);
             } else {
                 sprintf(paint, "%s Mode: BROIL\n|    |Time: %d:%02d\n|    |Temp: 500%sF\n%s", L1, meanoven.remaintime/60, meanoven.remaintime%60, DEGREE_SYMBOL, shut);
             }
-            break;     
+            break;  
+            
+            
+            
+            
+            
+            
+            case TOASTM:
+            if (meanoven.state == COOKING || meanoven.state == RESET_PENDING) {
+                sprintf(paint, "%s Mode: TOAST\n|    |Time: %d:%02d\n%s", L2, meanoven.cookingTime/60, meanoven.cookingTime%60, shut);
+            } else {
+                sprintf(paint, "%s Mode: TOAST\n|    |Time: %d:%02d\n%s", L2, meanoven.remaintime/60, meanoven.remaintime%60, on);
+            }
+            break;
+            
     }
     
     OledDrawString(paint);
+    
     OledUpdate();
     
     
@@ -155,12 +188,12 @@ void runOvenSM(void)
     if (meanoven.state == SETUP) {
         
             if (changeadc) {
-                adcVal = AdcRead();
-                adcVal = (adcVal & 0x03FC) >> 2;
+                adc = AdcRead();
+                adc = (adc & 0x03FC) >> 2;
                 if (meanoven.mode == BAKEM && ted) {
-                    meanoven.temp = adcVal + 300;
+                    meanoven.temp = adc + 300;
                 } else {
-                    meanoven.cookingTime = adcVal + 1;
+                    meanoven.cookingTime = adc + 1;
                     meanoven.remaintime = meanoven.cookingTime;
                 }
                 
@@ -184,40 +217,6 @@ void runOvenSM(void)
                 
             }
           
-    }else if (meanoven.state == SELECTOR_CHANGE_PENDING) {
-            if (buttonevent & BUTTON_EVENT_3UP) {
-                passedt = abstract - meanoven.timepress;
-                if (passedt >= 5) {
-                    if (meanoven.mode == BAKEM) {
-                        if (ted) {
-                            ted = FALSE;
-                        } else {
-                            ted = TRUE;
-                        }
-                    }
-                    updateOvenOLED(meanoven);
-                    meanoven.state = SETUP;
-                    
-                } else {
-                    if (meanoven.mode == BROILM) {
-                        meanoven.mode = BAKEM;
-                    
-                    } else {
-                        meanoven.mode ++;
-                    }
-                    if (meanoven.mode == BROILM) {
-                        a = meanoven.temp;
-                        meanoven.temp = 500;
-                        
-                    } else if (meanoven.mode == BAKEM) {
-                        meanoven.temp = a;
-                    }
-                    
-                    updateOvenOLED(meanoven);
-                    meanoven.state = SETUP;
-                }
-            }
-            
     } else if (meanoven.state == COOKING) {
             if (tick) {
                 count ++;
@@ -273,7 +272,42 @@ void runOvenSM(void)
                 meanoven.state = COOKING;
             }
             
+    }else if (meanoven.state == SELECTOR_CHANGE_PENDING) {
+            if (buttonevent & BUTTON_EVENT_3UP) {
+                passedt = abstract - meanoven.timepress;
+                if (passedt >= 5) {
+                    if (meanoven.mode == BAKEM) {
+                        if (ted) {
+                            ted = FALSE;
+                        } else {
+                            ted = TRUE;
+                        }
+                    }
+                    updateOvenOLED(meanoven);
+                    meanoven.state = SETUP;
+                    
+                } else {
+                    if (meanoven.mode == BROILM) {
+                        meanoven.mode = BAKEM;
+                    
+                    } else {
+                        meanoven.mode ++;
+                    }
+                    if (meanoven.mode == BROILM) {
+                        a = meanoven.temp;
+                        meanoven.temp = 500;
+                        
+                    } else if (meanoven.mode == BAKEM) {
+                        meanoven.temp = a;
+                    }
+                    
+                    updateOvenOLED(meanoven);
+                    meanoven.state = SETUP;
+                }
+            }
+            
     }
+    
     
     
     
@@ -354,18 +388,20 @@ int main()
     
     
     
-    printf("Welcome to 1874224 Lab07 (Toaster Oven).  Compiled on %s %s.", __TIME__, __DATE__);
+    printf("Welcome to 1872442 Lab07 (Toaster Oven).  Compiled on %s %s.", __TIME__, __DATE__);
 
     //initialize state machine (and anything else you need to init) here
 
     
     //initialize state machine (and anything else you need to init) here
+    meanoven.remaintime = 1;
+    meanoven.mode = BAKEM;
     meanoven.timepress = 0;
     meanoven.cookingTime = 1;
-    meanoven.remaintime = 1;
-    meanoven.temp = 350;
     meanoven.state = SETUP;
-    meanoven.mode = BAKEM;
+    meanoven.temp = 350;
+    
+    
 
     OledInit();
     ButtonsInit();
@@ -385,8 +421,14 @@ int main()
         // clear event flags
           if (buttonevent != BUTTON_EVENT_NONE || changeadc || tick) {
             runOvenSM();
+            
+            
+            
+            
             buttonevent = BUTTON_EVENT_NONE;
             changeadc = FALSE;
+            
+            
             tick = FALSE;
         }
     };
@@ -399,6 +441,9 @@ void __ISR(_TIMER_3_VECTOR, ipl4auto) TimerInterrupt5Hz(void)
     // Clear the interrupt flag.
     IFS0CLR = 1 << 12;
 
+    
+    
+    
     
     tick = TRUE;
     abstract++;
@@ -419,7 +464,13 @@ void __ISR(_TIMER_2_VECTOR, ipl4auto) TimerInterrupt100Hz(void)
     IFS0CLR = 1 << 8;
 
     //add event-checking code here
-    changeadc = AdcChanged();
     buttonevent = ButtonsCheckEvents();
+    changeadc = AdcChanged();
+    
+    
+    
+    
+    
+    
     
 }
