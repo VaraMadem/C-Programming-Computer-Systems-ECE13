@@ -1,0 +1,6 @@
+Name: Vara Madem
+
+I did this lab solo and wrote Agent.c, Agent.Test, Negotiation.c, NegotiationTest.c, Field.c
+
+In this lab we created a battleship game that can be played against any other impemented agent. One testing strategy that I found effective was using the libraries that were given to create the c files that to create the fully functional battleboats. For this lab I took a very different approach- I worked on one file at a time, which was actually very difficult so I had to do a lot of debugging to combine the test files with teh c files. Creating an outline of the files after seeing all the bugs and creating pseudocode also helped me understand each funtion a lot more. I also created test files for each function of the agent and negotiation c files which helped me check extreme cases. 
+This lab was a lot harder than the rest, and I believe that with a little more time and a little more explanation of the game I could of had a better understanding and had more fun doing this lab.I was annoyed that a lot of my code wasn't working at first, and I wasn't able to test some certain issues because of how I didn't have the files I needed to complete the whole battleboats program. I also got a little sick which put me a bit behinf, but ultimately I was able to complete all my files and felt very happy with the results.
