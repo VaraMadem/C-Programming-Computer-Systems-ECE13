@@ -5,7 +5,6 @@
  * Created on December 4, 2022, 2:31 PM
  */
 
-
 // **** Include libraries here ****
 // Standard libraries
 #include <stdlib.h>
@@ -25,7 +24,6 @@
 #include "BattleBoats.h"
 
 //**** Define any global or external variables here ****
-/*
 #define EQUAL =
 #define DEQUAL ==
 #define NEQUAL !=
@@ -37,8 +35,6 @@
 #define SUB -
 #define MUL *
 #define DIV /
-  
-
 
 // Counter Variable
 static int counter EQUAL 0;
@@ -58,19 +54,7 @@ static NegotiationData hash_val;
 static GuessData guess_a;
 static GuessData guess_b;
 
- * */
-
-
-
 // **** Declare any function prototypes here ****
-
-static AgentState state;
-static int turnCounteroo;
-static FieldOledTurn turn;
-static Field ownField, oppField;
-static NegotiationData lbj, mj;
-static NegotiationData kobe;
-
 
 /**
  * The Init() function for an Agent sets up everything necessary for an agent before the game
@@ -83,18 +67,11 @@ static NegotiationData kobe;
  *  */
 void AgentInit(void) {
     // Set State
-    /*
     state EQUAL AGENT_STATE_START;
     agent_a EQUAL (NegotiationData) rand();
     hash_val EQUAL NegotiationHash(agent_a);
     agent_b EQUAL rand();
     counter EQUAL 0;  
-     * */
-    
-    state = AGENT_STATE_START;
-    turn= FIELD_OLED_TURN_NONE;
-    turnCounteroo = 0;
-    
 }
 
 /**
@@ -110,8 +87,6 @@ void AgentInit(void) {
  * for generating the Message struct, not for encoding or sending it.
  */
 Message AgentRun(BB_Event event) {
-    
-    /*
     Message message;
     message.type EQUAL MESSAGE_NONE;
     if (event.type DEQUAL BB_EVENT_RESET_BUTTON) {
@@ -237,136 +212,7 @@ Message AgentRun(BB_Event event) {
     }
     // Return message
     return message;
-     */
-    Message mess;
-    mass.type= MESSAGE_NONE;
-    
-    if(event.type == B_EVENT_RESET_BUTTON){
-        AgentInit();
-        return mess;
-    }
-    
-    if(state == AGENT_STATE_START){
-        if(event.type == BB_EVENT_CHA_RECEIVED){
-            state = AGENT_STATE_ACCEPTING;
-            kobe= event.param0;
-            mj=rand();
-            mess.type = MESSAGE_ACC;
-            mess.param0 = mj;
-            FieldInit(&ownField, &oppField);
-            FieldAIPlaceAllBoats(&ownField);
-        }
-        else if (event.type == BB_EVENT_START_BUTTON){
-            state = AGENT_STATE_CHALLENGE;
-            lbj = rand();
-            kobe= NegotiationHash(lbj);
-            mess.type= MESSAGE_CHA;
-            mess.param0=kobe;
-            FieldInit(&ownField, &oppField);
-            FieldAIPlaceAllBoats(&ownField);
-    }
-       
-        
-    else if (state == AGENT_STATE_CHALLENGING){
-        if(event.type == BB_EVENT_ACC_RECEIVED){
-            mj = event.param0;
-            if(NegotiationCoinFlip(lbj, event.param0)== HEADS){
-                state=AGENT_STATE_WAITING_TO_SEND;
-        }
-            else{
-                state= AGENT_STATE_DEFENDING;
-            }
-            FieldOledDrawScreen(&ownField, &oppField, FIELD_OLED_TURN_THEIRS, turnCounteroo);
-            mess.param0 = lbj;
-            mess.type = MESSAGE_REV;
-    }
-        FieldOledDrawScreen(&ownField, &oppField, FIELD_OLED_TURN_THEIRS, turnCounteroo);
-        mess.param0 = lbj;
-        mess.type = MESSAGE_REV;
-}   else if (state == AGENT_STATE_ACCEPTING){
-    if(event.type == BB_EVENT_REV_RECEIVED){
-        lbj = event.param0;
-        if(NegotiationVerify(lbj, kobe)){
-            printf("\n");
-        }else {
-            state = AGENT_STATE_END_SCREEN;
-            return mess;
-        }
-        if(NegotiationCoinFlip(lbj, mj)==HEADS){
-            state= AGENT_STATE_DEFENDING;
-            FieldOledDrawScreen(&ownField, &oppField, FIELD_OLED_TURN_THEIRS, turnCounteroo);
-        }
-        else {
-            state= AGENT_STATE_ATTACKING;
-            FieldOledDrawScreen(&ownField, &oppField, FIELD_OLED_TURN_MINE, turnCounteroo);
-            GuessData rax = FieldAIDecideGuess(&oppField);
-            mess.type = MESSAGE_SHO;
-            mess.param1 = rax.col;
-            mess.param0= rax.row;
-        }
-    }
-    else if( state== AGENT_STATE_ATTACKING){
-        if(event.tyoe == BB_EVENT_RES_RECEIVED){
-            GuessData rax;
-            rax.col = event.param1;
-            rax.row = event.param0;
-            rax.result = event.param2;
-            
-            FieldUpdateKnowledge(&oppField, &rax);
-            
-            if(oppField.smallBoatlives == 0 && oppField.mediumBoatLives == 0 && oppField.largeBoatLives == 0 && oppField.hugeBoatLives ==0){
-                state = AGENT_STATE_SCREEN;
-                return mess;
-            }
-            else{
-                FieldOledDrawScreen(&ownField, &oppField, FIELD_OLED_TURN_MINE, turnCounteroo);
-                state= AGENT_STATE_DEFENDING;
-            }
-        }
-        else if (state == AGENT_STATE_DEFENDING){
-            if(event.type == BB_EVENT_SHO_RECEIVED){
-                GuessData fax;
-                fax.col = event.param1;
-                fax.row = event.param0;
-                fax.result = event.paranm2;
-                FieldRegisterEnemyAttack(&ownField, &fax);
-                
-                mess.type = MESSAGE_RES;
-                mess.param1 = fax.col;
-                mess.param0 = fax.row;
-                mess.param2 = fax.result;
-                if(oppField.smallBoatLives == 0 && oppField.mediumBoatLives == 0 && oppField.largeBoatLives == 0 && oppField.hugeBoatLives==0){
-                    state = AGENT_STATE_END_SCREEN;
-                    return mess;
-                }
-                else{
-                    FieldOledDrawScreen(&ownField, &oppField, FIELD_OLED_TURN_MINE, turnCounteroo);
-                    state = AGENT_STATE_WAITING_TO_SEND;
-                }
-                
-            }
-            
-        }
-        else if (state == AGENT_STATE_WAITING_TO_SEND){
-            if(event.type ==BB_EVENT_MESSAGE_SENT){
-                turnCounteroo++;
-                GuessData fax = FieldAIDecideGuess(&oppField);
-                mess.param1 = fax.col;
-                mess.param0 = fax.row;
-                mess.type = MESSAGE_SHO;
-                state AGENT_STATE_ATTACKING;
-            }
-           
-        } else if (state == AGENT_STATE_END_SCREEN){
-            printf("\n");
-        
-        } else{
-            mess.type= MESSAGE_ERROR;
-        }
-    }
-    return mess;
 }
-        
 
 /** * 
  * @return Returns the current state that AgentGetState is in.  
